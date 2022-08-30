@@ -9,56 +9,39 @@ namespace RefillMod
 {
     public static class GUI
     {
-        public static Rocket rocket;
-
-        private static GameObject holder;
+        static GameObject holder;
+        static readonly int MainWindowID = Builder.GetRandomID();
 
         public static void SpawnGUI()
         {
-            // If window already spawned
-            if (holder != null)
-                return;
-
-            holder = new GameObject("RefillMod GUI Holder");
+            holder = Builder.CreateHolder(Builder.SceneToAttach.CurrentScene, "RefillMod GUI Holder");
             
-            Window window = Builder.CreateWindow(holder, 300, 180, 200, 200,
-                true, 0.95f, "RefillMod");
+            Window window = Builder.CreateWindow(holder.transform, MainWindowID, 300, 180, 200, 200,
+                true, true,0.95f, "RefillMod");
 
             // Layout in window
-            window.CreateLayoutGroup(LayoutType.Vertical).spacing = 20f;
-            window.CreateLayoutGroup(LayoutType.Vertical).DisableChildControl();
-            window.CreateLayoutGroup(LayoutType.Vertical).childAlignment = TextAnchor.MiddleCenter;
+            window.CreateLayoutGroup(Type.Vertical);
 
-            // Position is (0, 0) because window has layout group
-            Container inputContainer = Builder.CreateContainer(window.ChildrenHolder, 0, 0);
+            // Doesnt set position because window has layout group
+            Container inputContainer = Builder.CreateContainer(window);
 
             // Layout in container
-            inputContainer.CreateLayoutGroup(LayoutType.Horizontal).spacing = 10f;
-            inputContainer.CreateLayoutGroup(LayoutType.Horizontal).DisableChildControl();
-            inputContainer.CreateLayoutGroup(LayoutType.Horizontal).childAlignment = TextAnchor.MiddleCenter;
+            inputContainer.CreateLayoutGroup(Type.Horizontal, spacing: 10f);
 
             // Elements in container
-            Builder.CreateLabel(inputContainer.gameObject, 140, 50, 0, 0, "Fill percent:");
-            TextInput textInput = Builder.CreateTextInput(inputContainer.gameObject, 120, 50, 0, 0, "100", style: Builder.Style.Blue);
+            Builder.CreateLabel(inputContainer, 140, 50, 0, 0, "Fill percent:");
+            TextInput input = Builder.CreateTextInput(inputContainer, 120, 50, 0, 0, "100");
 
-            Builder.CreateButton(window.ChildrenHolder, 230, 50, 0, 0,
-                () => Refill(float.Parse(textInput.Text, NumberStyles.Any, CultureInfo.InvariantCulture)),
-                "Refill", Builder.Style.Blue);
-            
-            Builder.AttachToCanvas(holder, Builder.SceneToAttach.CurrentScene);
+            // Refill button
+            Builder.CreateButton(window, 230, 50, 0, 0, () => Refill(input.Text), "Refill");
         }
 
-        public static void DestroyGUI()
+        static void Refill(string _value)
         {
-            if (holder == null)
+            if (!(PlayerController.main.player.Value is Rocket rocket))
                 return;
             
-            Object.Destroy(holder);
-            holder = null;
-        }
-
-        private static void Refill(float value)
-        {
+            float value = float.Parse(_value, NumberStyles.Any, CultureInfo.InvariantCulture);
             foreach (ResourceModule module in rocket.partHolder.GetModules<ResourceModule>())
             {
                 module.TakeResource(module.ResourceAmount);

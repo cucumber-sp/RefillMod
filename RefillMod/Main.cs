@@ -6,9 +6,6 @@ namespace RefillMod
 {
     public class Main : Mod
     {
-        public Main() : base("refillmod", "RefillMod", "Andrey Onishchenko",
-            "0.5.7", "v1.0", "Example mod") { }
-
         public override void Early_Load()
         {
             new Harmony("refillmod").PatchAll();
@@ -16,15 +13,14 @@ namespace RefillMod
 
         public override void Load()
         {
-            SceneHelper.OnSceneLoaded += (x) =>
-            {
-                if (x.name == "World_PC")
-                    GUI.SpawnGUI();
-                else
-                    GUI.DestroyGUI();
-            };
+            SceneHelper.OnWorldSceneLoaded += GUI.SpawnGUI;
         }
 
-        public override void Unload() { GUI.DestroyGUI(); }
+        public override string ModNameID => "refillmod";
+        public override string DisplayName => "RefillMod";
+        public override string Author => "Andrey Onischenko";
+        public override string MinimumGameVersionNecessary => "1.5.7";
+        public override string ModVersion => "1.0";
+        public override string Description => "Example mod";
     }
 }

@@ -36,7 +36,7 @@
           <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Spaceflight Simulator\Spaceflight Simulator Game\Spaceflight Simulator_Data\Managed\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp">
-          <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Spaceflight Simulator\Spaceflight Simulator Game\Spaceflight Simulator_Data\Managed\Assembly-CSharp.dll</HintPath>
+          <HintPath>..\..\Spaceflight-Simulator\Test Builds\Windows\Spaceflight Simulator_Data\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
@@ -50,9 +50,6 @@
         </Reference>
         <Reference Include="Unity.Analytics.Tracker">
           <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Spaceflight Simulator\Spaceflight Simulator Game\Spaceflight Simulator_Data\Managed\Unity.Analytics.Tracker.dll</HintPath>
-        </Reference>
-        <Reference Include="Unity.RemoteConfig">
-          <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Spaceflight Simulator\Spaceflight Simulator Game\Spaceflight Simulator_Data\Managed\Unity.RemoteConfig.dll</HintPath>
         </Reference>
         <Reference Include="Unity.RemoteConfig.Editor.Core">
           <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Spaceflight Simulator\Spaceflight Simulator Game\Spaceflight Simulator_Data\Managed\Unity.RemoteConfig.Editor.Core.dll</HintPath>
@@ -298,7 +295,6 @@
     <ItemGroup>
         <Compile Include="GUI.cs" />
         <Compile Include="Main.cs" />
-        <Compile Include="Patcher.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
