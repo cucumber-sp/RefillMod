@@ -22,18 +22,14 @@ namespace RefillMod
             // Layout in window
             window.CreateLayoutGroup(Type.Vertical);
 
-            // Doesnt set position because window has layout group
             Container inputContainer = Builder.CreateContainer(window);
 
-            // Layout in container
+            // Percent input field
+            InputWithLabel percentInput = Builder.CreateInputWithLabel(window, 380, 50, labelText: "Fill percent:", inputText: "100");
             inputContainer.CreateLayoutGroup(Type.Horizontal, spacing: 10f);
 
-            // Elements in container
-            Builder.CreateLabel(inputContainer, 140, 50, 0, 0, "Fill percent:");
-            TextInput input = Builder.CreateTextInput(inputContainer, 120, 50, 0, 0, "100");
-
             // Refill button
-            Builder.CreateButton(window, 230, 50, 0, 0, () => Refill(input.Text), "Refill");
+            Builder.CreateButton(window, 230, 50, 0, 0, () => Refill(percentInput.textInput.Text), "Refill");
         }
 
         static void Refill(string _value)
